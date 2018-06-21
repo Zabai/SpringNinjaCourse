@@ -1,6 +1,8 @@
 package com.zarmas.ninjabackend.controller;
 
 import com.zarmas.ninjabackend.model.Person;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,6 +16,8 @@ import org.springframework.web.servlet.ModelAndView;
 public class Example3Controller {
     private static final String FORM_VIEW = "form";
     private static final String FORM_RESULT = "result";
+
+    private static final Log LOGGER = LogFactory.getLog(Example3Controller.class);
 
     // First way to redirect
     @GetMapping("/")
@@ -29,8 +33,10 @@ public class Example3Controller {
 
     @PostMapping("/addperson")
     public ModelAndView addPerson(@ModelAttribute("person") Person person) {
+        LOGGER.info("METHOD: 'addPerson' -- PARAMS: '" + person + "'");
         ModelAndView mav = new ModelAndView(FORM_RESULT);
         mav.addObject("person", person);
+        LOGGER.info("TEMPLATE: '" + FORM_RESULT + ".html' --- DATA: '" + person + "'");
         return mav;
     }
 }
