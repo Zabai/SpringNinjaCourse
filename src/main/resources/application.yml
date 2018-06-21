@@ -1,3 +1,6 @@
 # Spring
+spring:
+  thymeleaf:
+    mode: HTML5
 
 # Security
