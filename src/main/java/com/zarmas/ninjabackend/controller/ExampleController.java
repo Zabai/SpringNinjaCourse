@@ -1,5 +1,6 @@
 package com.zarmas.ninjabackend.controller;
 
+import com.zarmas.ninjabackend.model.Person;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,7 +16,7 @@ public class ExampleController {
     // First Way
     @GetMapping("/exampleString")
     public String exampleString(Model model) {
-        model.addAttribute("name", "General Kenobi");
+        model.addAttribute("person", new Person("General Kenobi", 34));
         return EXAMPLE_VIEW;
     }
 
@@ -23,7 +24,7 @@ public class ExampleController {
     @RequestMapping(value = "/exampleMAV", method = RequestMethod.GET)
     public ModelAndView exampleMAV() {
         ModelAndView mav = new ModelAndView(EXAMPLE_VIEW);
-        mav.addObject("name", "Yoda");
+        mav.addObject("person", new Person("Yoda", 99));
 
         return mav;
     }
