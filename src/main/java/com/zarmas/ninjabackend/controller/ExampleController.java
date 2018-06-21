@@ -1,6 +1,9 @@
 package com.zarmas.ninjabackend.controller;
 
+import com.zarmas.ninjabackend.component.ExampleComponent;
 import com.zarmas.ninjabackend.model.Person;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,11 +17,16 @@ import java.util.List;
 @Controller
 @RequestMapping("/example")
 public class ExampleController {
-    public static final String EXAMPLE_VIEW = "example";
+    private static final String EXAMPLE_VIEW = "example";
+
+    @Autowired
+    @Qualifier("exampleComponent")
+    private ExampleComponent exampleComponent;
 
     // First Way
     @GetMapping("/exampleString")
     public String exampleString(Model model) {
+        exampleComponent.sayHello();
         model.addAttribute("people", getPersonList());
         return EXAMPLE_VIEW;
     }
