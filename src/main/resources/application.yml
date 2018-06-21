@@ -1,3 +1,6 @@
-# Spring properties
+# Spring
+spring:
+  banner:
+    location: classpath:/banner/banner.txt
 
-# Security properties
+# Security
