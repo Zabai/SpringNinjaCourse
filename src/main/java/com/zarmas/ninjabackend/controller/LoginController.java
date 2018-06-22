@@ -1,5 +1,6 @@
 package com.zarmas.ninjabackend.controller;
 
+import com.zarmas.ninjabackend.constant.ViewConstant;
 import com.zarmas.ninjabackend.model.UserCredentialModel;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -12,9 +13,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class LoginController {
-    private final String LOGIN_VIEW = "login";
-    private final String CONTACTS_VIEW = "contacts";
-
     private final Log log = LogFactory.getLog(LoginController.class);
 
     @GetMapping("/")
@@ -33,7 +31,7 @@ public class LoginController {
         model.addAttribute("error", error);
         model.addAttribute("logout", logout);
         model.addAttribute("userCredentials", new UserCredentialModel());
-        return LOGIN_VIEW;
+        return ViewConstant.LOGIN_FORM;
     }
 
     @PostMapping("/loginCheck")
@@ -41,7 +39,7 @@ public class LoginController {
         log.info("Method: 'loginCheck()' --- Params: userCredential='" + userCredential.toString() + "'");
 
         if(userCredential.getUsername().equals("user") && userCredential.getPassword().equals("user"))
-            return CONTACTS_VIEW;
+            return "redirect:/contacts/";
         else
             return "redirect:/login?error";
     }
