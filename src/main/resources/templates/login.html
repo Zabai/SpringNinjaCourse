@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-  <head>
+<head>
     <meta charset="utf-8"/>
 
     <title>Backend Ninja - Signin</title>
@@ -9,27 +9,35 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
 
     <!-- Custom styles for this template -->
-    <link href="#" th:href="@{/css/login.css}" rel="stylesheet" />
-    <link href="#" th:href="@{/css/style.css}" rel="stylesheet" />
+    <link href="#" th:href="@{/css/login.css}" rel="stylesheet"/>
+    <link href="#" th:href="@{/css/style.css}" rel="stylesheet"/>
 
-  </head>
+</head>
 
-  <body>
+<body>
+<div class="container">
 
-    <div class="container">
-
-      <form class="form-signin">
+    <form class="form-signin" th:action="@{/loginCheck}" th:object="${userCredentials}" method="post">
         <h2 class="form-signin-heading">Sign in</h2>
-        <label for="inputEmail" class="sr-only">Username</label>
-        <input type="text" id="inputUsername" class="form-control" placeholder="Username"/>
+
+        <label for="inputUsername" class="sr-only">Username</label>
+        <input type="text" id="inputUsername" class="form-control" placeholder="Username" th:field="*{username}"/>
+
         <label for="inputPassword" class="sr-only">Password</label>
-        <input type="password" id="inputPassword" class="form-control" placeholder="Password"/>
+        <input type="password" id="inputPassword" class="form-control" placeholder="Password" th:field="*{password}"/>
+
+        <div class="alert alert-danger" role="alert" th:if="${error != null}">
+            Invalid username or password
+        </div>
+        <div class="alert alert-info" role="alert" th:if="${logout != null}">
+            Logout successfully
+        </div>
+
         <button class="btn btn-lg btn-primary btn-block" type="submit">
-        	<span class="glyphicon glyphicon-log-in" aria-hidden="true"></span> Sign in
+            <span class="glyphicon glyphicon-log-in" aria-hidden="true"></span> Sign in
         </button>
-      </form>
+    </form>
 
-    </div> <!-- /container -->
-
+</div>
 </body>
 </html>
