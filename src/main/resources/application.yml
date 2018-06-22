@@ -3,7 +3,7 @@ spring:
   thymeleaf:
     mode: HTML
   datasource:
-    url: jdbc:mysql://localhost:3306/ninja_course
+    url: jdbc:mysql://localhost:3306/ninja_course?useSSL=false
     username: ninja
     password: ninja
   jpa:
