@@ -1,6 +1,7 @@
 package com.zarmas.ninjabackend.controller;
 
 import com.zarmas.ninjabackend.entity.Course;
+import com.zarmas.ninjabackend.model.CourseModel;
 import com.zarmas.ninjabackend.service.CourseService;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -33,7 +34,7 @@ public class CourseController {
     }
 
     @PostMapping("/addcourse")
-    public String addCourse(@ModelAttribute("course") Course course) {
+    public String addCourse(@ModelAttribute("course") CourseModel course) {
         log.info("Call: 'addCourse()' --- Param: '" + course + "'");
         courseService.addCourse(course);
         return "redirect:/courses/";
