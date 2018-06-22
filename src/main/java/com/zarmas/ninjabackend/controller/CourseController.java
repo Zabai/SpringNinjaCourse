@@ -27,6 +27,7 @@ public class CourseController {
     public ModelAndView listAllCourses() {
         log.info("Call: 'listAllCourses()'");
         ModelAndView mav = new ModelAndView(COURSES_VIEW);
+        mav.addObject("course", new Course());
         mav.addObject("courses", courseService.listAllCourses());
         return mav;
     }
