@@ -1,6 +1,5 @@
 package com.zarmas.ninjabackend.configuration;
 
-import com.zarmas.ninjabackend.service.implementation.UserServiceImplementation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Configuration;
@@ -16,12 +15,12 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Autowired
     @Qualifier("UserServiceImplementation")
-    private UserDetailsService userServiceImplementation;
+    private UserDetailsService userService;
 
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder authenticationBuilder) throws Exception {
         authenticationBuilder
-                .userDetailsService(userServiceImplementation)
+                .userDetailsService(userService)
                 .passwordEncoder(new BCryptPasswordEncoder());
     }
 
