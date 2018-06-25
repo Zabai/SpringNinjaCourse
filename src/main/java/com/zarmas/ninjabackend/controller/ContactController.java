@@ -2,8 +2,11 @@ package com.zarmas.ninjabackend.controller;
 
 import com.zarmas.ninjabackend.constant.ViewConstant;
 import com.zarmas.ninjabackend.model.ContactModel;
+import com.zarmas.ninjabackend.service.ContactService;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -13,8 +16,14 @@ import org.springframework.web.bind.annotation.*;
 public class ContactController {
     private final Log log = LogFactory.getLog(ContactController.class);
 
+    @Autowired
+    @Qualifier("ContactServiceImplementation")
+    private ContactService contactService;
+
     @GetMapping("/")
     public String showContacts(Model model, @RequestParam(name = "result", required = false) String result) {
+        log.info("Method: 'showContacts()' --- Params: result='" + result + "'");
+
         model.addAttribute("result", result);
         return ViewConstant.CONTACTS_LIST;
     }
@@ -26,10 +35,12 @@ public class ContactController {
     }
 
     @PostMapping("/create")
-    public String createContact(Model model, @ModelAttribute(name = "contactModel") ContactModel contactModel) {
+    public String createContact(@ModelAttribute(name = "contactModel") ContactModel contactModel) {
         log.info("Method: 'createContact' --- Params: contactModel='" + contactModel.toString() + "'");
 
-        model.addAttribute("result", 1);
-        return "redirect:/contacts/?result";
+        if(contactService.addContact(contactModel) != null)
+            return "redirect:/contacts/?result=1";
+        else
+            return "redirect:/contacts/?result=0";
     }
 }

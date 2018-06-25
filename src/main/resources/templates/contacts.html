@@ -72,9 +72,13 @@
 			</table>
 		</div>
 
-        <div class="alert alert-info" role="alert" th:if="${result != null}">
+        <div class="alert alert-info" role="alert" th:if="${result == '1'}">
             New contact created successfully
         </div>
+
+		<div class="alert alert-info" role="alert" th:if="${result == '0'}">
+			Error adding contact
+		</div>
 
 
         <a class="btn btn-lg btn-primary btn-block" href="#" th:href="@{/contacts/new}">
