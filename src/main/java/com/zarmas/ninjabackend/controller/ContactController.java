@@ -25,6 +25,8 @@ public class ContactController {
         log.info("Method: 'showContacts()' --- Params: result='" + result + "'");
 
         model.addAttribute("result", result);
+        model.addAttribute("contacts", contactService.listAllContacts());
+
         return ViewConstant.CONTACTS_LIST;
     }
 
