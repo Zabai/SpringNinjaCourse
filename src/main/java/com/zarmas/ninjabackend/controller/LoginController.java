@@ -1,6 +1,6 @@
 package com.zarmas.ninjabackend.controller;
 
-import com.zarmas.ninjabackend.constant.ViewConstant;
+import com.zarmas.ninjabackend.views.ContactViews;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.stereotype.Controller;
@@ -20,7 +20,7 @@ public class LoginController {
 
         model.addAttribute("error", error);
         model.addAttribute("logout", logout);
-        return ViewConstant.LOGIN_FORM;
+        return ContactViews.LOGIN_FORM;
     }
 
     @GetMapping({"/", "/loginSuccess"})

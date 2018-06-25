@@ -1,7 +1,6 @@
 package com.zarmas.ninjabackend.controller;
 
-import com.zarmas.ninjabackend.constant.ViewConstant;
-import com.zarmas.ninjabackend.entity.Contact;
+import com.zarmas.ninjabackend.views.ContactViews;
 import com.zarmas.ninjabackend.model.ContactModel;
 import com.zarmas.ninjabackend.service.ContactService;
 import org.apache.commons.logging.Log;
@@ -34,14 +33,14 @@ public class ContactController {
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         model.addAttribute("username", user.getUsername());
 
-        return ViewConstant.CONTACTS_LIST;
+        return ContactViews.CONTACTS_LIST;
     }
 
     @PreAuthorize("hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')")
     @GetMapping("/new")
     public String showContactForm(Model model) {
         model.addAttribute("contactModel", new ContactModel());
-        return ViewConstant.CONTACT_FORM;
+        return ContactViews.CONTACT_FORM;
     }
 
     @GetMapping("/edit/{id}")
@@ -52,7 +51,7 @@ public class ContactController {
             return "redirect:/contacts/";
 
         model.addAttribute("contactModel", contactModel);
-        return ViewConstant.CONTACT_FORM;
+        return ContactViews.CONTACT_FORM;
     }
 
 
