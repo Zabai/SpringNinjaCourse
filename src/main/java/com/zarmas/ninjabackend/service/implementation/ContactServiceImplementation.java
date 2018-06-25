@@ -37,4 +37,31 @@ public class ContactServiceImplementation implements ContactService {
 
         return contacts;
     }
+
+    @Override
+    public Contact findContactById(int id) {
+        return contactRepository.findById(id);
+    }
+
+    @Override
+    public ContactModel findContactModelById(int id) {
+        return contactConverter.entityToModel(findContactById(id));
+    }
+
+    @Override
+    public ContactModel updateContact(ContactModel contactModel) {
+        Contact updatedContact = contactRepository.save(contactConverter.modelToEntity(contactModel));
+        return contactConverter.entityToModel(updatedContact);
+    }
+
+    @Override
+    public boolean removeContact(int id) {
+        Contact contact = findContactById(id);
+
+        if(contact == null)
+            return false;
+
+        contactRepository.delete(contact);
+        return true;
+    }
 }

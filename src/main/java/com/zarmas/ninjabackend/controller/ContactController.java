@@ -1,6 +1,7 @@
 package com.zarmas.ninjabackend.controller;
 
 import com.zarmas.ninjabackend.constant.ViewConstant;
+import com.zarmas.ninjabackend.entity.Contact;
 import com.zarmas.ninjabackend.model.ContactModel;
 import com.zarmas.ninjabackend.service.ContactService;
 import org.apache.commons.logging.Log;
@@ -36,13 +37,39 @@ public class ContactController {
         return ViewConstant.CONTACT_FORM;
     }
 
+    @GetMapping("/edit/{id}")
+    public String editContactForm(@PathVariable("id") int id, Model model) {
+        ContactModel contactModel = contactService.findContactModelById(id);
+
+        if(contactModel == null)
+            return "redirect:/contacts/";
+
+        model.addAttribute("contactModel", contactModel);
+        return ViewConstant.CONTACT_FORM;
+    }
+
+
     @PostMapping("/create")
     public String createContact(@ModelAttribute(name = "contactModel") ContactModel contactModel) {
         log.info("Method: 'createContact' --- Params: contactModel='" + contactModel.toString() + "'");
+
+        if(contactModel.getId() != 0)
+            return updateContact(contactModel);
 
         if(contactService.addContact(contactModel) != null)
             return "redirect:/contacts/?result=1";
         else
             return "redirect:/contacts/?result=0";
+    }
+
+    private String updateContact(ContactModel contactModel) {
+        contactService.updateContact(contactModel);
+        return "redirect:/contacts/";
+    }
+
+    @GetMapping("/delete")
+    public String removeContact(@RequestParam(name = "id", required = true) int id) {
+        contactService.removeContact(id);
+        return "redirect:/contacts/";
     }
 }

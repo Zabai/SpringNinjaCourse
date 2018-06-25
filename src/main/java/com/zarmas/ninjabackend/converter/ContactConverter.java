@@ -10,6 +10,7 @@ public class ContactConverter {
     public Contact modelToEntity(ContactModel contactModel) {
         Contact contact = new Contact();
 
+        contact.setId(contactModel.getId());
         contact.setFirstName(contactModel.getFirstName());
         contact.setLastName(contactModel.getLastName());
         contact.setCity(contactModel.getCity());
@@ -21,6 +22,7 @@ public class ContactConverter {
     public ContactModel entityToModel(Contact contact) {
         ContactModel contactModel = new ContactModel();
 
+        contactModel.setId(contact.getId());
         contactModel.setFirstName(contact.getFirstName());
         contactModel.setLastName(contact.getLastName());
         contactModel.setCity(contact.getCity());
